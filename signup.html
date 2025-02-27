@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Bill Payment</title>
+<!-- Sweet Alert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-color: #f7f9fa;
+  }
+  .container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #2e99e0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(43, 152, 224, 0.1);
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  input[type="text"], input[type="email"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #55afd3;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px; /* Add margin-bottom to create space */
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  .back-btn {
+    background-color: #f44336;
+  }
+  .back-btn:hover {
+    background-color: #c62828;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Water Bill Payment</h2>
+  <!-- Form action set to the PHP script handling form submission -->
+  <form id="signup-form" action="classes/signup.php" method="post">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="code">Code:</label>
+      <input type="text" id="code" name="code" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="">Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="birthday">Birthday:</label>
+      <input type="date" id="birthday" name="birthday" required>
+    </div>
+    <!-- Pass event object to validateForm function -->
+    <button type="submit" onclick="validateForm(event)">Sign Up</button>
+    <button type="button" class="back-btn" onclick="goBack()">Back</button>
+  </form>
+</div>
+
+<!-- Sweet Alert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+  function validateForm(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    var name = document.getElementById("name").value;
+    var code = document.getElementById("code").value;
+    var email = document.getElementById("email").value;
+    var gender = document.getElementById("gender").value;
+    var birthday = document.getElementById("birthday").value;
+
+    if (name && code && email && gender && birthday) {
+      // Perform an AJAX request to signup.php
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "classes/signup.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var response = xhr.responseText;
+
+            if (response.trim() === "New record created successfully") {
+              Swal.fire({
+                icon: 'success',
+                title: 'Registration Successful',
+                text: 'Thank you for registering!',
+                showConfirmButton: true,
+                timer: 5000,
+                onClose: function() {
+                  // Redirect to index.html after success
+                  window.location.href = "index.html";
+                }
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: response.trim(), // Display the error message returned from signup.php
+                confirmButtonText: 'Ok'
+              });
+            }
+          } else {
+            // Handle other HTTP status codes if needed
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: 'Something went wrong with the request.',
+              confirmButtonText: 'Ok'
+            });
+          }
+        }
+      };
+
+      xhr.send("name=" + name + "&code=" + code + "&email=" + email + "&gender=" + gender + "&birthday=" + birthday);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Please fill in all fields.',
+        confirmButtonText: 'Ok'
+      });
+    }
+  }
+
+  function goBack() {
+    window.location.href = "index.html";
+  }
+</script>
+</body>
+</html>

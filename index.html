@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Bill Payment Sri Lanka</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="dist/css/index.css">
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div class="navbar">
+  <div class="logo"><a href="#" class="logo"><img src="dist/img/logo1.png" alt="Water Bill Payment Logo"></a></div>
+  <div class="menu">
+    <a href="index.html" class="active">Home</a>
+    <a href="complain.html">Complain</a>
+    <a href="login.html">PayBill</a>
+    <a href="signup.html"><i class="fas fa-user-plus"></i> Register</a>
+  </div>
+</div>
+
+<!-- Slideshow container -->
+<div class="slideshow-container">
+  <div class="mySlides sliding">
+    <img src="dist/img/in1.jpeg" alt="Image 1">
+  </div>
+  <div class="mySlides sliding">
+    <img src="dist/img/in2.jpeg" alt="Image 2">
+  </div>
+  <div class="mySlides sliding">
+    <img src="dist/img/in3.jpeg" alt="Image 3">
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>© 2024 Water Bill Payment Sri Lanka. All Rights Reserved.</p>
+  <p>Developed by NYC Embilipitiya</p>
+</footer>
+
+<script>
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let slides = document.getElementsByClassName("mySlides");
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  slides[slideIndex-1].style.display = "block";  
+  slides[slideIndex-1].classList.add("sliding");
+  setTimeout(() => {
+    slides[slideIndex-1].classList.remove("sliding");
+  }, 2000); // Remove class after animation ends
+  setTimeout(showSlides, 8000); // Change image every 8 seconds
+}
+</script>
+
+</body>
+</html>

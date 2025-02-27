@@ -1,0 +1,228 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Styles for navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: #1292b9;
+  position: relative; /* Position relative for absolute positioning */
+  padding: 15px 20px; /* Adjusted padding to accommodate larger logo */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a:not(.logo) { /* Exclude the logo from hover effect */
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 15px 20px;
+    transition: background-color 0.3s;
+    border-radius: 8px;
+  }
+  
+.navbar a:not(.logo):hover {
+  background-color:#005b9c;
+}
+/* Logo style */
+.logo img {
+  height: 40%; /* Make the logo image fill the height of the container */
+  max-width: 40%; /* Ensure responsiveness */
+}
+
+
+/* Signup and Login dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown .dropbtn {
+  font-size: 18px;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: #2c3e50;
+  font-family: inherit;
+  margin: 0;
+  padding: 15px 20px;
+  cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+  transition: background-color 0.3s;
+  border-radius: 8px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #34495e;
+  min-width: 160px;
+  z-index: 1;
+  border-radius: 8px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  border-bottom: 1px solid #2c3e50;
+}
+
+.dropdown-content a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #0555af;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Responsive navigation bar */
+@media screen and (max-width: 500px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+  .navbar a, .dropdown .dropbtn {
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .dropdown-content {
+    position: static;
+    display: none;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: none;
+  }
+
+  .dropdown:hover .dropdown-content a {
+    display: block;
+    text-align: center;
+    border-bottom: 10px solid #2c3e50;
+  }
+
+  .dropdown-content a:last-child {
+    border-bottom: none;
+  }
+
+.bill {
+  height: 30px;
+  width: 30px; /* Adjust height as needed */
+  background-size: cover;
+  text-align:left;
+}
+
+
+
+
+/* Footer styles */
+.footer {
+  background-color: #22b5cf;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Creative styles */
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+.menu a {
+  position: relative;
+  margin-right: 20px;
+}
+
+.menu a i {
+  position:absolute;
+  top: -10px; /* Adjusted position */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1292b9; /* Changed background color */
+  color: white;
+  width: 25px; /* Adjusted width */
+  height: 25px; /* Adjusted height */
+  border-radius: 40%;
+  text-align: center;
+  line-height: 20px;
+  font-size: 15px; /* Increased font size */
+}
+
+/* Add your custom CSS styles here */
+
+/* CSS for PayBill link */
+.menu a[href="login.html"] {
+  background-color: #2ecc71; /* Green */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.menu a[href="login.html"]:hover {
+  background-color: #27ae60; /* Darker green */
+}
+
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+  overflow: hidden;
+}
+
+.mySlides {
+  width: 100%;
+  height: 100%;
+  display: none;
+  
+  object-fit: cover;
+}
+
+.sliding {
+  animation: slideEffect 2s;
+}
+
+@keyframes slideEffect {
+  from {transform: translateX(100%); opacity: 0}
+  to {transform: translateX(0); opacity: 1}
+}
+
+/* Ensure images are fullscreen */
+.slideshow-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+
+

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-KyFm49r2bLTkHZ94DuCse4fVn3NG99ecGknRPmGtYjDAjEaFCk06Aubw5enOj0Yp6Vr2Z9O4FVTYb4K5xXkXNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 40px; /* Added margin around the body */
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #333; /* Added border for the frame */
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px; /* Center the logo and add bottom margin */
+            max-width: 200px; /* Adjust the logo size as needed */
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #invoiceDetails {
+            margin-top: 30px;
+        }
+        p {
+            margin: 10px 0;
+            color: #666;
+        }
+        .invoice-details {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+        .waterboard-details {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            font-size: 12px;
+        }
+        #downloadBtn {
+            display: block;
+            width: 50%; /* Adjust the width as needed */
+            padding: 10px 15px;
+            margin: 20px auto; /* Set top and bottom margin to 20px and center horizontally */
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #downloadBtn.hide {
+            display: none; /* Hide the button */
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <img src="dist/img/logo1.png" alt="Waterboard Logo" class="logo"> <!-- Add the logo here -->
+        <h1>Invoice</h1>
+        <div id="invoiceDetails">
+            <!-- Display invoice details here using JavaScript -->
+        </div>
+        <div class="waterboard-details">
+            <p><strong>Waterboard Srilanka</strong></p>
+            <p>Address: National Water Supply and Drainage Board
+                Galle Road,
+                Ratmalana,
+                Sri Lanka.</p>
+            <p>City, State, ZIP: Watercity, WS 12345</p>
+            <p>Phone: (047) 578-3927</p>
+            <p>Email: contact@waterboard.com</p>
+        </div>
+        <button id="downloadBtn">Download Invoice</button> <!-- Add download button -->
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script> <!-- Include html2pdf library -->
+        <script>
+            // Retrieve payment details from localStorage
+            var paymentDetails = JSON.parse(localStorage.getItem("paymentDetails"));
+
+            // Display invoice details
+            var invoiceDetailsContainer = document.getElementById("invoiceDetails");
+            invoiceDetailsContainer.innerHTML = `
+                <div class="invoice-details">
+                    <p><strong>Name:</strong> ${paymentDetails.name}</p>
+                    <p><strong>Email:</strong> ${paymentDetails.email}</p>
+                    <p><strong>Amount:</strong> ${paymentDetails.amount}</p>
+                    <p><strong>Month:</strong> ${paymentDetails.month}</p>
+                    <!-- Add more invoice details as needed -->
+                </div>
+            `;
+            
+            // Function to generate and download invoice as a PDF
+            function downloadInvoice() {
+                document.getElementById("downloadBtn").classList.add("hide"); // Hide the button before generating PDF
+                var element = document.getElementById("container");
+                html2pdf()
+                    .from(element)
+                    .toPdf()
+                    .get('pdf')
+                    .then(function(pdf) {
+                        var blob = new Blob([pdf.output('blob')], { type: 'application/pdf' });
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = 'invoice.pdf'; // Set the file name here
+                        link.click();
+                        window.location.href = "index.html";
+                    });
+            }
+            
+            // Add event listener to download button
+            document.getElementById("downloadBtn").addEventListener("click", downloadInvoice);
+        </script>
+    </div>
+</body>
+</html>

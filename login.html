@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+<!-- SweetAlert CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<style>
+/* Form styling */
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 50px;
+  background-color: #2196F3;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn {
+  background-color: #0b7dda;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.btn:hover {
+  background-color: #005b9c;
+}
+
+.form-title {
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.label {
+  color: white;
+  font-size: 16px;
+}
+
+.back-btn {
+  background-color: #f44336;
+}
+
+.back-btn:hover {
+  background-color: #c62828;
+}
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2 class="form-title">Water Bill Payment</h2>
+  <form id="loginForm">
+    <label for="name" class="label">Name:</label>
+    <input type="text" id="name" name="name" class="form-input" placeholder="Your name.." required>
+
+    <label for="code" class="label">Code Number:</label>
+    <input type="text" id="code" name="code" class="form-input" placeholder="Code number.." required>
+
+    <label for="email" class="label">Email:</label>
+    <input type="email" id="email" name="email" class="form-input" placeholder="Your email.." required>
+
+    <button type="button" class="btn" onclick="login()">Login</button>
+    <button type="button" class="btn back-btn" onclick="goBack()">Back</button>
+  </form>
+</div>
+
+<script>
+  function login() {
+    // Get form data
+    var name = document.getElementById("name").value;
+    var code = document.getElementById("code").value;
+    var email = document.getElementById("email").value;
+
+    // Create XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+
+    // Configure request
+    xhr.open("POST", "classes/login.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    // Send request
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Handle response
+            var response = xhr.responseText;
+            if (response === "Login successful!") {
+                // SweetAlert for successful login
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful!',
+                    text: response,
+                    showConfirmButton: false,
+                    timer: 1500, // Auto close alert after 1.5 seconds
+                    onClose: function() {
+                        // Redirect to payment.html after success
+                        window.location.href = "payment.html";
+                    }
+                });
+                // Clear input fields
+                document.getElementById("name").value = "";
+                document.getElementById("code").value = "";
+                document.getElementById("email").value = "";
+            } else {
+                // SweetAlert for unsuccessful login
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: response,
+                });
+            }
+        }
+    };
+    // Send form data as JSON
+    xhr.send("name=" + name + "&code=" + code + "&email=" + email);
+  }
+
+  function goBack() {
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>
